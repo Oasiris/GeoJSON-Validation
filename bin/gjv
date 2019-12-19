@@ -39,7 +39,7 @@ function validateGeoJson(rawJson) {
   //     });
   //   }
   // });
-  GJV.isValid(json).then((val) => {
+  GJV.isValid.either(json).then((val) => {
     const isValid = val._tag === 'Right'
     if (isValid) {
       console.log('valid!');

@@ -10,11 +10,11 @@
   },
   "devDependencies": {
     "mocha": "^4.0.1",
+    "np": "^5.2.1",
     "typescript": "^3.7.3"
   },
   "scripts": {
-    "build": "rm -rf ./dist && tsc && mkdir ./dist/original && cp ./src/original/index.js ./dist/original/index.js",
-    "test": "mocha -R spec"
+    "build": "rm -rf ./dist && tsc && mkdir ./dist/original && cp ./src/original/index.js ./dist/original/index.js"
   },
   "bin": {
     "gjv": "./bin/gjv"
@@ -28,5 +28,9 @@
   "license": "LGPL-3",
   "dependencies": {
     "fp-ts": "^2.3.1"
+  },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/npm/cli.git"
   }
 }
