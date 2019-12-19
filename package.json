@@ -1,6 +1,6 @@
 {
   "name": "geo-valley",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A GeoJSON validation library for Typescript.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
