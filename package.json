@@ -1,12 +1,12 @@
 {
-  "name": "typed-geojson-validation",
-  "version": "0.2.1",
+  "name": "geo-valley",
+  "version": "1.0.0",
   "description": "A GeoJSON validation library for Typescript.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "prepublish": "tsc",
   "directories": {
-    "test": "test"
+    "test": "src/original/test"
   },
   "devDependencies": {
     "mocha": "^4.0.1",
@@ -22,9 +22,7 @@
   "keywords": [
     "GeoJSON",
     "Validation",
-    "TypeScript",
-    "Geo",
-    "cli"
+    "TypeScript"
   ],
   "author": "Oasiris <teracontinens@gmail.com>",
   "license": "LGPL-3",

@@ -3,15 +3,63 @@ import * as GJV from './original/'
 import {
     Either,
     left,
-    right
+    right,
 } from 'fp-ts/lib/Either'
 
 export type BaseValidatorCallback = GJV.BaseValidatorCallback
 export type BaseValidator = GJV.BaseValidator
 
-type PromiseBasedValidator = (val: any) => Promise<Either<string[], void>>
+// type PromiseDefaultValidator = (val: any) => Promise<string[] | undefined>
+// type PromiseBooleanValidator = (val: any) => Promise<boolean>
+// type PromiseEitherValidator = (val: any) => Promise<Either<string[], void>>
 
-function promisifyValidator(baseValidator: BaseValidator): PromiseBasedValidator {
+interface IValidator {
+    (val: any): Promise<string[] | undefined>
+
+    /** Validator that resolves to a `boolean`. */
+    bool: (val: any) => Promise<boolean>
+
+    /** Validator that resolves to the `Either` type from the `fp-ts` library. */
+    either: (val: any) => Promise<Either<string[], void>>
+}
+
+function convertValidatorDefault(baseValidator: BaseValidator): (val: any) => Promise<string[] | undefined> {
+    return function(val: any) {
+        return new Promise((resolve) => {
+            if (typeof val !== 'object') {
+                resolve(['Not an object'])
+            }
+            baseValidator(val, (isValid, errors) => {
+                if (isValid === true) {
+                    resolve(undefined)
+                } else {
+                    resolve(errors)
+                }
+            })
+        })
+    }
+}
+
+/**
+ * Test.
+ */
+function convertValidatorBoolean(baseValidator: BaseValidator): (val: any) => Promise<boolean> {
+    return function(val: any) {
+        return new Promise((resolve) => {
+            if (typeof val !== 'object') {
+                resolve(false)
+            }
+            baseValidator(val, (isValid, errors) => {
+                resolve(isValid)
+            })
+        })
+    }
+}
+
+/**
+ * Test 2.
+ */
+function convertValidatorEither(baseValidator: BaseValidator): (val: any) => Promise<Either<string[], void>> {
     return function(val: any) {
         return new Promise((resolve) => {
             if (typeof val !== 'object') {
@@ -28,22 +76,66 @@ function promisifyValidator(baseValidator: BaseValidator): PromiseBasedValidator
     }
 }
 
-export const isFeature: (val: any) => Promise<Either<string[], void>> = promisifyValidator(GJV.isFeature)
-export const isFeatureCollection: (val: any) => Promise<Either<string[], void>> = promisifyValidator(GJV.isFeatureCollection)
-export const isPoint: (val: any) => Promise<Either<string[], void>> = promisifyValidator(GJV.isPoint)
-export const isMultiPoint: (val: any) => Promise<Either<string[], void>> = promisifyValidator(GJV.isMultiPoint)
-export const isLineString: (val: any) => Promise<Either<string[], void>> = promisifyValidator(GJV.isLineString)
-export const isMultiLineString: (val: any) => Promise<Either<string[], void>> = promisifyValidator(GJV.isMultiLineString)
-export const isPolygon: (val: any) => Promise<Either<string[], void>> = promisifyValidator(GJV.isPolygon)
-export const isMultiPolygon: (val: any) => Promise<Either<string[], void>> = promisifyValidator(GJV.isMultiPolygon)
-export const isGeometryCollection: (val: any) => Promise<Either<string[], void>> = promisifyValidator(GJV.isGeometryCollection)
-export const isBox: (val: any) => Promise<Either<string[], void>> = promisifyValidator(GJV.isBox)
-export const isPosition: (val: any) => Promise<Either<string[], void>> = promisifyValidator(GJV.isPosition)
+function convertValidator(baseValidator: BaseValidator): IValidator {
+    const validator = convertValidatorDefault(baseValidator) as any
+    validator.bool = convertValidatorBoolean(baseValidator)
+    validator.either = convertValidatorEither(baseValidator)
+    return validator
+}
 
+/**
+ * Checks if an object is a Feature.
+ */
+export const isFeature = convertValidator(GJV.isFeature)
+/**
+ * Checks if an object is a FeatureCollection.
+ */
+export const isFeatureCollection: IValidator = convertValidator(GJV.isFeatureCollection)
+/**
+ * Checks if an object is a Point geometry.
+ */
+export const isPoint: IValidator = convertValidator(GJV.isPoint)
+/**
+ * Checks if an object is a MultiPoint geometry.
+ */
+export const isMultiPoint: IValidator = convertValidator(GJV.isMultiPoint)
+/**
+ * Checks if an object is a Line String geometry.
+ */
+export const isLineString: IValidator = convertValidator(GJV.isLineString)
+/**
+ * Checks if an object is a MultiLine String geometry.
+ */
+export const isMultiLineString: IValidator = convertValidator(GJV.isMultiLineString)
+/**
+ * Checks if an object is a Polygon geometry.
+ */
+export const isPolygon: IValidator = convertValidator(GJV.isPolygon)
+/**
+ * Checks if an object is a MultiPolygon geometry.
+ */
+export const isMultiPolygon: IValidator = convertValidator(GJV.isMultiPolygon)
+/**
+ * Checks if an object is a GeometryCollection.
+ */
+export const isGeometryCollection: IValidator = convertValidator(GJV.isGeometryCollection)
+/**
+ * Checks if an object is a Bounding Box.
+ */
+export const isBox: IValidator = convertValidator(GJV.isBox)
+/**
+ * Checks if an object is a Position.
+ */
+export const isPosition: IValidator = convertValidator(GJV.isPosition)
 /**
  * Checks if an object is a GeoJSON Object.
  */
-export const isGeoJSONObject: (val: any) => Promise<Either<string[], void>> = promisifyValidator(GJV.isGeoJSONObject)
-export const isGeometryObject: (val: any) => Promise<Either<string[], void>> = promisifyValidator(GJV.isGeometryObject)
-
-export const isValid: (val: any) => Promise<Either<string[], void>> = promisifyValidator(GJV.isGeoJSONObject)
+export const isGeoJSONObject: IValidator = convertValidator(GJV.isGeoJSONObject)
+/**
+ * Checks if an object is a Geometry.
+ */
+export const isGeometryObject: IValidator = convertValidator(GJV.isGeometryObject)
+/**
+ * Checks if an object is a valid GeoJSON.
+ */
+export const isValid: IValidator = convertValidator(GJV.isGeoJSONObject)
