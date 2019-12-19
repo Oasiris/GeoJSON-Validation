@@ -3,7 +3,7 @@
 A Promise-based GeoJSON validation library for TypeScript.
 
 * Validates [GeoJSON](http://geojson.org/geojson-spec.html#geojson-objects)s of the following types: Feature, FeatureCollection, Geometry, Geometry Collection.
-* Optimized for Typescript + Node.js.
+* Optimized for Node.js TypeScript.
 * Customizable output.
 
 ## Documentation
@@ -97,71 +97,128 @@ Each function has a `bool` variant that will simply return `true` for valid or `
 > Checks whether an object is a valid GeoJSON.
 > 
 > **Returns:** `Promise<string[] | undefined>`
+> 
+> Variants:
+> * `isValid.bool(geojson): Promise<boolean>`
+> * `isValid.either(geojson): Promise<Either<string[], void>>`
+
 
 #### `.isGeojson(input)`
 > Checks whether an object is a valid GeoJSON.
 > 
 > **Returns:** `Promise<string[] | undefined>`
+> 
+> Variants:
+> * `isGeojson.bool(input): Promise<boolean>`
+> * `isGeojson.either(input): Promise<Either<string[], void>>`
 
 #### `.isFeature(input)`
 > Checks whether an object is a valid Feature.
 > 
 > **Returns:** `Promise<string[] | undefined>`
+> 
+> Variants:
+> * `isFeature.bool(input): Promise<boolean>`
+> * `isFeature.either(input): Promise<Either<string[], void>>`
 
 #### `.isFeatureCollection(input)`
 > Checks whether an object is a valid FeatureCollection.
 > 
 > **Returns:** `Promise<string[] | undefined>`
+> 
+> Variants:
+> * `isFeatureCollection.bool(input): Promise<boolean>`
+> * `isFeatureCollection.either(input): Promise<Either<string[], void>>`
 
 #### `.isGeometry(input)`
 > Checks whether an object is a valid Geometry.
 > 
 > **Returns:** `Promise<string[] | undefined>`
+> 
+> Variants:
+> * `isGeometry.bool(input): Promise<boolean>`
+> * `isGeometry.either(input): Promise<Either<string[], void>>`
 
 #### `.isGeometryCollection(input)`
 > Checks whether an object is a valid GeometryCollection.
 > 
 > **Returns:** `Promise<string[] | undefined>`
+> 
+> Variants:
+> * `isGeometryCollection.bool(input): Promise<boolean>`
+> * `isGeometryCollection.either(input): Promise<Either<string[], void>>`
 
 #### `.isPoint(input)`
 > Checks whether an object is a valid Point geometry.
 > 
 > **Returns:** `Promise<string[] | undefined>`
+> 
+> Variants:
+> * `isPoint.bool(input): Promise<boolean>`
+> * `isPoint.either(input): Promise<Either<string[], void>>`
 
 #### `.isMultiPoint(input)`
 > Checks whether an object is a valid MultiPoint geometry.
 > 
 > **Returns:** `Promise<string[] | undefined>`
+> 
+> Variants:
+> * `isMultiPoint.bool(input): Promise<boolean>`
+> * `isMultiPoint.either(input): Promise<Either<string[], void>>`
 
 #### `.isLineString(input)`
 > Checks whether an object is a valid Line String geometry.
 > 
 > **Returns:** `Promise<string[] | undefined>`
+> 
+> Variants:
+> * `isLineString.bool(input): Promise<boolean>`
+> * `isLineString.either(input): Promise<Either<string[], void>>`
 
 #### `.isMultiLineString(input)`
 > Checks whether an object is a valid MultiLine String geometry.
 > 
 > **Returns:** `Promise<string[] | undefined>`
+> 
+> Variants:
+> * `isMultiLineString.bool(input): Promise<boolean>`
+> * `isMultiLineString.either(input): Promise<Either<string[], void>>`
 
 #### `.isPolygon(input)`
 > Checks whether an object is a valid Polygon geometry.
 > 
 > **Returns:** `Promise<string[] | undefined>`
+> 
+> Variants:
+> * `isPolygon.bool(input): Promise<boolean>`
+> * `isPolygon.either(input): Promise<Either<string[], void>>`
 
 #### `.isMultiPolygon(input)`
 > Checks whether an object is a valid MultiPolygon geometry.
 > 
 > **Returns:** `Promise<string[] | undefined>`
+> 
+> Variants:
+> * `isMultiPolygon.bool(input): Promise<boolean>`
+> * `isMultiPolygon.either(input): Promise<Either<string[], void>>`
 
 #### `.isBox(input)`
 > Checks whether an object is a valid Bounding Box.
 > 
 > **Returns:** `Promise<string[] | undefined>`
+> 
+> Variants:
+> * `isBox.bool(input): Promise<boolean>`
+> * `isBox.either(input): Promise<Either<string[], void>>`
 
 #### `.isPosition(input)`
 > Checks whether an object is a valid Position.
 > 
 > **Returns:** `Promise<string[] | undefined>`
+> 
+> Variants:
+> * `isPosition.bool(input): Promise<boolean>`
+> * `isPosition.either(input): Promise<Either<string[], void>>`
 
 ### License
 
