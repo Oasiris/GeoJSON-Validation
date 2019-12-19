@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var GJV = require('../'),
+var GJV = require('../dist/'),
   fs = require('fs'),
   filenames  = process.argv.splice(2);
 
@@ -30,10 +30,21 @@ if (filenames.length) {
 }
 function validateGeoJson(rawJson) {
   var json = JSON.parse(rawJson);
-  GJV.valid(json, function (isValid, errs) {
+  // GJV.isValid(json, function (isValid, errs) {
+  //   if (isValid) {
+  //     console.log('valid!');
+  //   } else {
+  //     errs.forEach(function(err){  
+  //         console.log(err);
+  //     });
+  //   }
+  // });
+  GJV.isValid(json).then((val) => {
+    const isValid = val._tag === 'Right'
     if (isValid) {
       console.log('valid!');
     } else {
+      const errs = val.left
       errs.forEach(function(err){  
           console.log(err);
       });

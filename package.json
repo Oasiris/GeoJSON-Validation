@@ -1,31 +1,34 @@
 {
-  "name": "geojson-validation",
+  "name": "typed-geojson-validation",
   "version": "0.2.1",
-  "description": "A GeoJSON Validation Library",
-  "main": "index.js",
+  "description": "A GeoJSON validation library for Typescript.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "prepublish": "tsc",
   "directories": {
     "test": "test"
   },
   "devDependencies": {
-    "mocha": "^4.0.1"
+    "mocha": "^4.0.1",
+    "typescript": "^3.7.3"
   },
   "scripts": {
+    "build": "rm -rf ./dist && tsc && mkdir ./dist/original && cp ./src/original/index.js ./dist/original/index.js",
     "test": "mocha -R spec"
   },
   "bin": {
     "gjv": "./bin/gjv"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/craveprogramminginc/GeoJSON-Validation.git"
-  },
-  "homepage": "https://github.com/craveprogramminginc/GeoJSON-Validation",
   "keywords": [
     "GeoJSON",
     "Validation",
+    "TypeScript",
     "Geo",
     "cli"
   ],
-  "author": "mjbecze <mjbecze@gmail.com>",
-  "license": "LGPL-3"
+  "author": "Oasiris <teracontinens@gmail.com>",
+  "license": "LGPL-3",
+  "dependencies": {
+    "fp-ts": "^2.3.1"
+  }
 }
