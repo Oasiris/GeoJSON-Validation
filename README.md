@@ -8,9 +8,9 @@ A Promise-based GeoJSON validation library for TypeScript.
 
 ## Documentation
 
-- [User Guide](#User-Guide): Learn how to use Geo Valley.
-- [Examples](#Examples)
-- [API](#API)
+- [User Guide](#User-Guide): Learn how to start using Geo Valley.
+- [Examples](#Examples): See usage examples.
+- [API](#API): See API.
 
 ## User Guide
 
