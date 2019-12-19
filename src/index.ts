@@ -84,13 +84,29 @@ function convertValidator(baseValidator: BaseValidator): IValidator {
 }
 
 /**
+ * Checks if an object is a valid GeoJSON.
+ */
+export const isValid: IValidator = convertValidator(GJV.isGeoJSONObject)
+/**
+ * Checks if an object is a valid GeoJSON.
+ */
+export const isGeojson: IValidator = convertValidator(GJV.isGeoJSONObject)
+/**
  * Checks if an object is a Feature.
  */
-export const isFeature = convertValidator(GJV.isFeature)
+export const isFeature: IValidator = convertValidator(GJV.isFeature)
 /**
  * Checks if an object is a FeatureCollection.
  */
 export const isFeatureCollection: IValidator = convertValidator(GJV.isFeatureCollection)
+/**
+ * Checks if an object is a Geometry.
+ */
+export const isGeometry: IValidator = convertValidator(GJV.isGeometryObject)
+/**
+ * Checks if an object is a GeometryCollection.
+ */
+export const isGeometryCollection: IValidator = convertValidator(GJV.isGeometryCollection)
 /**
  * Checks if an object is a Point geometry.
  */
@@ -116,10 +132,6 @@ export const isPolygon: IValidator = convertValidator(GJV.isPolygon)
  */
 export const isMultiPolygon: IValidator = convertValidator(GJV.isMultiPolygon)
 /**
- * Checks if an object is a GeometryCollection.
- */
-export const isGeometryCollection: IValidator = convertValidator(GJV.isGeometryCollection)
-/**
  * Checks if an object is a Bounding Box.
  */
 export const isBox: IValidator = convertValidator(GJV.isBox)
@@ -127,15 +139,3 @@ export const isBox: IValidator = convertValidator(GJV.isBox)
  * Checks if an object is a Position.
  */
 export const isPosition: IValidator = convertValidator(GJV.isPosition)
-/**
- * Checks if an object is a GeoJSON Object.
- */
-export const isGeoJSONObject: IValidator = convertValidator(GJV.isGeoJSONObject)
-/**
- * Checks if an object is a Geometry.
- */
-export const isGeometryObject: IValidator = convertValidator(GJV.isGeometryObject)
-/**
- * Checks if an object is a valid GeoJSON.
- */
-export const isValid: IValidator = convertValidator(GJV.isGeoJSONObject)
